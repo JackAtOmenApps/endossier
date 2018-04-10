@@ -42,6 +42,7 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///endossier'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -68,7 +69,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
-    'rules'
+    'rules', 
 ]
 LOCAL_APPS = [
     'endossier.users.apps.UsersConfig',
@@ -129,6 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+   'django_tenants.middleware.main.TenantMainMiddleware'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -213,7 +215,7 @@ EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.s
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
-ADMIN_URL = r'^admin/'
+ADMIN_URL = r'^endoadmin/'
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 ADMINS = [
     ("""Omen Apps""", 'support@omenapps.com'),
