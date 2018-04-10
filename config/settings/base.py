@@ -100,8 +100,8 @@ MIGRATION_MODULES = {
     'sites': 'endossier.contrib.sites.migrations'
 }
 
-TENANT_MODEL = "endossier.customers.Client" # app.Model
-TENANT_DOMAIN_MODEL = "endossier.customers.Domain"  # app.Model
+TENANT_MODEL = "customers.Client" # app.Model
+TENANT_DOMAIN_MODEL = "customers.Domain"  # app.Model
 
 
 # AUTHENTICATION
