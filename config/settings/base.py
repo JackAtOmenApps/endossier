@@ -65,6 +65,7 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
+    'django_tenants',  # mandatory
     'crispy_forms',
     'allauth',
     'allauth.account',
@@ -73,14 +74,23 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     #'rules', 
 ]
-
-
 LOCAL_APPS = [
     'endossier.users.apps.UsersConfig',
+    'endossier.customers', 
     # Your stuff: custom apps go here
 ]
+TENANT_APPS = (
+    # The following Django contrib apps must be in TENANT_APPS
+    'django.contrib.contenttypes',
+
+    # your tenant-specific apps
+    #'myapp.hotels',
+    #'myapp.houses',
+)
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+SHARED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -88,6 +98,10 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIGRATION_MODULES = {
     'sites': 'endossier.contrib.sites.migrations'
 }
+
+TENANT_MODEL = "endossier.customers.Client" # app.Model
+TENANT_DOMAIN_MODEL = "endossier.customers.Domain"  # app.Model
+
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------

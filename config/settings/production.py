@@ -26,6 +26,9 @@ DATABASES['default'] = env.db('DATABASE_URL')  # noqa F405
 DATABASES['default']['ATOMIC_REQUESTS'] = True  # noqa F405
 DATABASES['default']['CONN_MAX_AGE'] = env.int('CONN_MAX_AGE', default=60)  # noqa F405
 
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -157,7 +160,7 @@ INSTALLED_APPS += ['gunicorn']  # noqa F405
 # ------------------------------------------------------------------------------
 # http://whitenoise.evans.io/en/latest/django.html#enable-whitenoise
 MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE  # noqa F405
-
+MIDDLEWARE = ['django_tenants.middleware.main.TenantMainMiddleware'] + MIDDLEWARE  # noqa F405
 
 
 # LOGGING
