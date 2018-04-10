@@ -3,8 +3,6 @@ Base settings to build other settings files upon.
 """
 
 import environ
-from .base import *  # noqa
-
 
 ROOT_DIR = environ.Path(__file__) - 3  # (endossier/config/settings/base.py - 3 = endossier/)
 APPS_DIR = ROOT_DIR.path('endossier')
@@ -40,9 +38,11 @@ USE_TZ = True
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES['default'] = env.db('DATABASE_URL')  # noqa F405
-
 DATABASES = {
+    'default': env.db('DATABASE_URL', default='postgres:///endossier'),
+}
+
+DATABASES += {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
         'ATOMIC_REQUESTS': True
