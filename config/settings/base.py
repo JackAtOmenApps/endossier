@@ -48,7 +48,8 @@ DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'config.tenant_urls'
+PUBLIC_SCHEMA_URLCONF = 'config.urls'
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -84,6 +85,7 @@ SHARED_APPS = (
 TENANT_APPS = (
     # The following Django contrib apps must be in TENANT_APPS
     'django.contrib.contenttypes',
+    'django.contrib.auth',
 
     # your tenant-specific apps
     #'myapp.hotels',
@@ -92,6 +94,8 @@ TENANT_APPS = (
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
