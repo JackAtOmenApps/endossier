@@ -42,7 +42,7 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres://localhost/watervize'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
 
 
 # URLS
