@@ -42,8 +42,7 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///endossier'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
-
+DATABASES['default']['DATABASE_ENGINE'] = 'django_tenants.postgresql_backend'
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
