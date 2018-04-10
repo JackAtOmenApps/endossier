@@ -8,26 +8,25 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['endossier.com'])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['endossier.com', 'www.endossier.com', '104.207.153.51'])
 
 # DATABASES
 # ------------------------------------------------------------------------------
 DATABASES['default'] = env.db('DATABASE_URL')  # noqa F405
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'watervizedb',
+#        'USER': 'watervizeuser',
+#        'PASSWORD': env('DB_PASS'),
+#        'HOST': 'localhost',
+#        'PORT': '',
+#    }
+#}
 DATABASES['default']['ATOMIC_REQUESTS'] = True  # noqa F405
 DATABASES['default']['CONN_MAX_AGE'] = env.int('CONN_MAX_AGE', default=60)  # noqa F405
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'endossier',
-        'USER': 'endossier',
-        'PASSWORD': env('DB_PASS'),
-        'HOST': 'localhost',
-    }
-}
-'''
 
-'''
+
 # CACHES
 # ------------------------------------------------------------------------------
 CACHES = {
@@ -42,7 +41,7 @@ CACHES = {
         }
     }
 }
-'''
+
 '''
 # SECURITY
 # ------------------------------------------------------------------------------

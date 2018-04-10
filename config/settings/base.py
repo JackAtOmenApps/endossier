@@ -39,20 +39,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///endossier'),
+    'default': env.db('DATABASE_URL', default='postgres://localhost/watervize'),
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-DATABASES = {
-    'default': {
-        #'ENGINE': 'django_tenants.postgresql_backend',
-        'ATOMIC_REQUESTS': True
-    }
-}
-'''
-DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
-)
-'''
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -79,8 +70,11 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
-    'rules', 
+    'django_extensions',
+    #'rules', 
 ]
+
+
 LOCAL_APPS = [
     'endossier.users.apps.UsersConfig',
     # Your stuff: custom apps go here
@@ -140,7 +134,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
-    #'django_tenants.middleware.main.TenantMainMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -209,6 +202,19 @@ TEMPLATES = [
 ]
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# REST FRAMEWORK
+# ------------------------------------------------------------------------------
+# http://www.django-rest-framework.org
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', 
+    ], 
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', 
+    'PAGE_SIZE': 10
+}
 
 # FIXTURES
 # ------------------------------------------------------------------------------
