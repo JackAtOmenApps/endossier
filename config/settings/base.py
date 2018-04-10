@@ -43,6 +43,7 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 DATABASES['default']['DATABASE_ENGINE'] = 'django_tenants.postgresql_backend'
+DATABASES['default']['ENGINE'] = 'django_tenants.postgresql_backend'
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
@@ -68,6 +69,7 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
+    'tenant_schemas',
     'crispy_forms',
     'allauth',
     'allauth.account',
