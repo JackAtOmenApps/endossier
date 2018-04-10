@@ -54,7 +54,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # APPS
 # ------------------------------------------------------------------------------
-DJANGO_APPS = [
+SHARED_APPS = (
+    #DJANGO APPS
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -63,9 +64,10 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     # 'django.contrib.humanize', # Handy template tags
     'django.contrib.admin',
-]
-THIRD_PARTY_APPS = [
+
+    # THIRD PARTY
     'django_tenants',  # mandatory
+    'gunicorn', 
     'crispy_forms',
     'allauth',
     'allauth.account',
@@ -73,12 +75,12 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_extensions',
     #'rules', 
-]
-LOCAL_APPS = [
+    
+    #MY APPS
     'endossier.users.apps.UsersConfig',
     'endossier.customers', 
     # Your stuff: custom apps go here
-]
+)
 TENANT_APPS = (
     # The following Django contrib apps must be in TENANT_APPS
     'django.contrib.contenttypes',
@@ -89,8 +91,7 @@ TENANT_APPS = (
 )
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-SHARED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
