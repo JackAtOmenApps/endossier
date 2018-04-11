@@ -12,18 +12,17 @@ ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['endossier.com', 'www.
 
 # DATABASES
 # ------------------------------------------------------------------------------
-DATABASES['default'] = env.db('DATABASE_URL')  # noqa F405
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django_tenants.postgresql_backend',
-#        'NAME': 'endossier',
-#        'USER': 'endossier',
-#        'PASSWORD': env('DB_PASS'),
-#        'HOST': 'localhost',
-#        'PORT': '',
-#    }
-#}
-DATABASES['default']['ATOMIC_REQUESTS'] = True  # noqa F405
+#DATABASES['default'] = env.db('DATABASE_URL')  # noqa F405
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'endossier',
+        'USER': 'endossier',
+        'PASSWORD': env('DB_PASS'),
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 DATABASES['default']['CONN_MAX_AGE'] = env.int('CONN_MAX_AGE', default=60)  # noqa F405
 
 DATABASE_ROUTERS = (
