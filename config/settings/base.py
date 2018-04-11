@@ -104,7 +104,7 @@ MIGRATION_MODULES = {
     'sites': 'endossier.contrib.sites.migrations'
 }
 
-TENANT_MODEL = "customers.Client" # app.Model
+TENANT_MODEL = "customers.Customer" # app.Model
 TENANT_DOMAIN_MODEL = "customers.Domain"  # app.Model
 
 
